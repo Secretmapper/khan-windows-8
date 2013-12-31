@@ -165,6 +165,15 @@
         border-bottom-width: 1px;
     }
 
+#controlDiv {
+    -ms-grid-column: 2;
+    -ms-grid-row: 1;
+    overflow-y: auto;
+    margin-top: 0px;
+    margin-left: 0px;
+    font-size: 10pt;
+}
+
 #noTranscriptDiv {
     -ms-grid-column: 2;
     -ms-grid-row: 2;

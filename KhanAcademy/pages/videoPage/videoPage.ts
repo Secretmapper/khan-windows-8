@@ -76,7 +76,7 @@ module VideoPage {
             //pause auto advancing of scroll because user is dragging scroll bar
             isAutoAdvanced = false;
         });
-
+        
         //video player
         vidPlayer = KA.id('vidPlayer');
         vidPlayer.addEventListener('play', function (e) {
@@ -137,6 +137,34 @@ module VideoPage {
             }
         });
 
+        //speed playback controls
+        var speedControl = <HTMLSelectElement>KA.id('speedControl');
+        KA.id('speedControl').addEventListener('change', function (e) {
+            vidPlayer.playbackRate = speedControl.options[speedControl.selectedIndex].value;
+        });
+
+        KA.id('increaseSpeed').addEventListener('click', function (e) {
+            if (speedControl.selectedIndex >= 3)
+                return;
+
+            speedControl.selectedIndex++;
+
+            var event = document.createEvent("Event");
+            event.initEvent("change", true, false);
+            speedControl.dispatchEvent(event);
+        });
+        KA.id('decreaseSpeed').addEventListener('click', function (e) {
+            if (speedControl.selectedIndex <= 0)
+                return;
+
+            speedControl.selectedIndex--;
+
+            var event = document.createEvent("Event");
+            event.initEvent("change", true, false);
+            speedControl.dispatchEvent(event);
+        });
+
+        
         document.addEventListener("visibilitychange", handleVisibilityChange, true);
 
         //app bar controls

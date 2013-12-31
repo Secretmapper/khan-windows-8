@@ -197,6 +197,7 @@
     <TypeScriptCompile Include="scripts\typings\moment\moment.d.ts" />
   </ItemGroup>
   <ItemGroup>
+    <SDKReference Include="Microsoft.PlayerFramework.Js, Version=1.8.2.2" />
     <SDKReference Include="Microsoft.WinJS.1.0, Version=1.0" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
