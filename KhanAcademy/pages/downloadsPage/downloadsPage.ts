@@ -70,6 +70,30 @@ module DownloadsPage {
         }
     }
 
+    function changeDownloadDirectory() {
+        var folderPicker = new Windows.Storage.Pickers.FolderPicker;
+        folderPicker.suggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.downloads;
+        folderPicker.fileTypeFilter.replaceAll([".mp4", ".avi", ".mkv"]);
+
+        folderPicker.pickSingleFolderAsync().then(function (folder) {
+            if (folder) {
+                // Application now has read/write access to all contents in the picked folder (including sub-folder contents)
+                // Cache folder so the contents can be accessed at a later time
+                Windows.Storage.AccessCache.StorageApplicationPermissions.futureAccessList.addOrReplace("PickedFolderToken", folder);
+
+                KA.Settings.downloadPath = folder.path;
+                KA.Settings.downloadDirectory = folder;
+
+                //KA.Settings.downloadDirectory.getFilesAsync().done(function (files: Windows.Foundation.Collections.IVector<Windows.Storage.StorageFile>) {
+
+                //});
+            } else {
+                // The picker was dismissed with no selected file
+                WinJS.log && WinJS.log("Operation cancelled.", "sample", "status");
+            }
+        });
+    }
+
     function initControls() {
         buildDownloads();
 
@@ -79,6 +103,8 @@ module DownloadsPage {
         KA.id('cmdSelectAll').addEventListener('MSPointerDown', selectAllVideos, false);
         KA.id('cmdClearSelection').addEventListener('MSPointerDown', clearVideoSelection, false);
 
+        KA.id('downloadDirChange').addEventListener('MSPointerDown', changeDownloadDirectory, false);
+        
         appBar.disabled = true;
         appBar.hideCommands(appBar.element.querySelectorAll('.multiSelect'));
     }

@@ -490,6 +490,11 @@
 
         // Completion callback.
         complete() {
+
+            //Copy to prefered dir
+            if (KA.Settings.downloadDirectory)
+                this.download.resultFile.copyAsync(KA.Settings.downloadDirectory, this.download.resultFile.name + '.mp4');
+            
             this.removeDownload(this.download.guid);
 
             try {

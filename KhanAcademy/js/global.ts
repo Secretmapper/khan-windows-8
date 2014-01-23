@@ -84,8 +84,17 @@
 
             return new WinJS.Promise(function (c, e) {
                 //init user log in menu
-
                 service.initUserMenu();
+
+                //init download Directory
+                Windows.Storage.StorageFolder.getFolderFromPathAsync(Windows.Storage.ApplicationData.current.localSettings.values['savedir']).done(function (folder) {
+                    if (folder) {
+                        KA.Settings.downloadDirectory = folder;
+                    }
+                    else {
+                        console.log("Download Directory Initialization Error - No Folder");
+                    }
+                });
 
                 //init services
                 KA.ApiClient.init().then(function () {
